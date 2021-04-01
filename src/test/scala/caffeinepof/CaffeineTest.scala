@@ -28,10 +28,6 @@ class CaffeineTest extends AnyFlatSpec with Matchers with ScalaFutures  {
     final case class Cat(id: Int, name: String, colour: String)
     val myCat = Cat(0, "felix", "brown")
 
-    def getValueFromDB(key: String): Future[Cat] = ???
-
-    getValueFromDB("felix").map(put("felix", _))
-
     implicit val caffeineCache: Cache[Cat] = CaffeineCache[Cat]
     put("felix")(myCat).futureValue
     get("felix").futureValue shouldBe Some(myCat)
